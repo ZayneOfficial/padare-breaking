@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Padare Admin Login</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #075985,
+                    #0e7490,
+                    #3f6b4f
+                );
+
+        }
+
+
+        .login-card {
+
+            width: 100%;
+            max-width: 430px;
+
+            padding: 40px;
+
+            background:
+                rgba(255, 255, 255, 0.97);
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 25px 60px
+                rgba(0, 0, 0, 0.2);
+
+        }
+
+
+        .logo {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .logo-mark {
+
+            width: 65px;
+            height: 65px;
+
+            margin: 0 auto 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 16px;
+
+            background: #075985;
+
+            color: #d6a62d;
+
+            font-size: 30px;
+
+        }
+
+
+        .logo h1 {
+
+            color: #075985;
+
+            font-family:
+                Georgia,
+                serif;
+
+            font-size: 28px;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .logo p {
+
+            margin-top: 7px;
+
+            color: #65747c;
+
+            font-size: 13px;
+
+        }
+
+
+        .welcome {
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .welcome h2 {
+
+            color: #24343d;
+
+            font-size: 22px;
+
+        }
+
+
+        .welcome p {
+
+            margin-top: 7px;
+
+            color: #65747c;
+
+            font-size: 14px;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #24343d;
+
+            font-weight: 600;
+
+            font-size: 14px;
+
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            padding: 14px 15px;
+
+            border: 1px solid #d8e0e3;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            transition: 0.25s ease;
+
+        }
+
+
+        .form-group input:focus {
+
+            border-color: #075985;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(7, 89, 133, 0.1);
+
+        }
+
+
+        .login-button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            margin-top: 5px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #075985;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+
+        }
+
+
+        .login-button:hover {
+
+            background: #064b70;
+
+            transform: translateY(-1px);
+
+        }
+
+
+        .login-button:disabled {
+
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+        }
+
+
+        .error {
+
+            display: none;
+
+            margin-bottom: 15px;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            background: #fbe9e7;
+
+            color: #b42318;
+
+            font-size: 13px;
+
+        }
+
+
+        .footer {
+
+            margin-top: 25px;
+
+            text-align: center;
+
+            color: #89959a;
+
+            font-size: 12px;
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .login-card {
+
+                padding: 30px 22px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <main class="login-card">
+
+
+        <div class="logo">
+
+            <div class="logo-mark">
+                🌿
+            </div>
+
+            <h1>PADARE</h1>
+
+            <p>
+                Breaking the Silence – Zambia
+            </p>
+
+        </div>
+
+
+        <div class="welcome">
+
+            <h2>Admin Login</h2>
+
+            <p>
+                Sign in to access the Padare administration dashboard.
+            </p>
+
+        </div>
+
+
+        <div
+            class="error"
+            id="errorMessage">
+        </div>
+
+
+        <form id="loginForm">
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="admin@padarezambia.org"
+                    required
+                    autocomplete="username">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                    autocomplete="current-password">
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-button"
+                id="loginButton">
+
+                Sign In
+
+            </button>
+
+
+        </form>
+
+
+        <div class="footer">
+
+            Breaking the Silence. Building Hope. Restoring Lives.
+
+        </div>
+
+
+    </main>
+
+
+<script>
+
+
+const loginForm =
+    document.getElementById("loginForm");
+
+
+const emailInput =
+    document.getElementById("email");
+
+
+const passwordInput =
+    document.getElementById("password");
+
+
+const loginButton =
+    document.getElementById("loginButton");
+
+
+const errorMessage =
+    document.getElementById("errorMessage");
+
+
+
+loginForm.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+
+        const email =
+            emailInput.value.trim();
+
+
+        const password =
+            passwordInput.value;
+
+
+        errorMessage.style.display =
+            "none";
+
+
+        loginButton.disabled =
+            true;
+
+
+        loginButton.textContent =
+            "Signing in...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/auth/login",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            email,
+                            password
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok || !data.success) {
+
+                throw new Error(
+                    data.message ||
+                    "Invalid email or password."
+                );
+
+            }
+
+
+            // Store JWT
+
+            localStorage.setItem(
+                "padareAdminToken",
+                data.token
+            );
+
+
+            // Go to dashboard
+
+            window.location.href =
+                "/dashboard/dashboard.html";
+
+
+        } catch (error) {
+
+            console.error(error);
+
+
+            errorMessage.textContent =
+                error.message ||
+                "Unable to login.";
+
+
+            errorMessage.style.display =
+                "block";
+
+
+        } finally {
+
+            loginButton.disabled =
+                false;
+
+
+            loginButton.textContent =
+                "Sign In";
+
+        }
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
