@@ -114,6 +114,14 @@ setInterval(() => {
 const contactForm = document.getElementById("contactForm");
 const formMessage = document.getElementById("formMessage");
 
+// Use the backend locally, but use the same domain after deployment
+const API_BASE_URL =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+        ? "http://localhost:5000"
+        : "";
+
+
 contactForm.addEventListener("submit", async function (event) {
 
     event.preventDefault();
@@ -152,7 +160,7 @@ contactForm.addEventListener("submit", async function (event) {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/messages",
+            `${API_BASE_URL}/api/messages`,
             {
                 method: "POST",
 
@@ -171,13 +179,35 @@ contactForm.addEventListener("submit", async function (event) {
         );
 
 
+        // Check that the server actually returned JSON
+        const contentType =
+            response.headers.get("content-type") || "";
+
+
+        if (!contentType.includes("application/json")) {
+
+            const text = await response.text();
+
+            console.error(
+                "Server returned non-JSON response:",
+                text
+            );
+
+            throw new Error(
+                "The server returned an unexpected response."
+            );
+
+        }
+
+
         const data = await response.json();
 
 
-        if (!response.ok) {
+        if (!response.ok || !data.success) {
 
             throw new Error(
-                data.message || "Something went wrong."
+                data.message ||
+                "Something went wrong."
             );
 
         }
@@ -194,7 +224,7 @@ contactForm.addEventListener("submit", async function (event) {
 
     } catch (error) {
 
-        console.error(error);
+        console.error("Contact form error:", error);
 
         formMessage.textContent =
             "We could not send your message. Please try again.";
@@ -204,7 +234,6 @@ contactForm.addEventListener("submit", async function (event) {
     }
 
 });
-
 // ==========================================
 // CURRENT YEAR
 // ==========================================
